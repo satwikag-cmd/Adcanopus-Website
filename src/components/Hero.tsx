@@ -110,6 +110,15 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded = true, onOpenGetStarted, o
 
   return (
     <section id="hero" className="relative pt-32 pb-20 lg:pt-44 lg:pb-32 overflow-hidden bg-white">
+      {/* Scaviyo-grade Radial Mesh Background */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 60% 10%, rgba(47,85,212,0.08) 0%, transparent 60%), linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '100% 100%, 48px 48px, 48px 48px',
+        }}
+      />
       {/* Subtle modern background ambiance */}
       <div className="absolute top-0 right-0 -z-10 w-2/3 h-[600px] bg-gradient-to-bl from-primary/8 via-brand-blue/4 to-transparent blur-3xl pointer-events-none" />
       <div className="absolute top-24 left-10 -z-10 w-80 h-80 bg-brand-light/70 rounded-full blur-2xl pointer-events-none" />
@@ -125,11 +134,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded = true, onOpenGetStarted, o
           >
             {/* Trust Pill */}
             <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center space-x-2.5 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wide shadow-sm cursor-default hover:bg-primary/15 transition-colors">
-                <span className="flex h-2.5 w-2.5 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
-                </span>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wide shadow-sm cursor-default hover:bg-primary/15 transition-colors">
                 <span>Performance Marketing Agency • 8+ Years Proven ROI Leadership</span>
               </div>
             </motion.div>
@@ -226,8 +231,10 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded = true, onOpenGetStarted, o
             className="lg:col-span-5 relative"
           >
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Main Card with Glass Polish */}
-              <div className="bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200/90 shadow-premium p-6 sm:p-7 relative z-10 space-y-5">
+              {/* Main Card with Glass Polish & Scaviyo Depth */}
+              <div className="bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-15px_rgba(47,85,212,0.12)] p-6 sm:p-7 relative z-10 space-y-5 overflow-hidden">
+                {/* Top Subtle Light Accent */}
+                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                 {/* Header of widget */}
                 <div className="flex items-center justify-between pb-3.5 border-b border-gray-100">
                   <div className="flex items-center space-x-3">
@@ -239,8 +246,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded = true, onOpenGetStarted, o
                       <p className="text-[11px] text-brand-muted font-medium">Click a channel to inspect live telemetry</p>
                     </div>
                   </div>
-                  <span className="flex items-center space-x-1.5 text-[11px] font-bold text-brand-green bg-brand-green/10 px-3 py-1 rounded-full">
-                    <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                  <span className="text-[11px] font-bold text-brand-green bg-brand-green/10 px-3 py-1 rounded-full">
                     <span>Live Attributed</span>
                   </span>
                 </div>

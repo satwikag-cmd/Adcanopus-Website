@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Smartphone,
   Share2,
@@ -15,12 +15,11 @@ import {
   Sliders,
   Activity,
   ArrowUpRight,
-  Sparkles,
-  Loader2
+  Sparkles
 } from 'lucide-react';
 import { servicesData } from '../data/servicesData';
 import { getServiceConfig } from '../data/serviceDetailsConfig';
-import { InteractiveStrategyBuilder } from '../components/InteractiveStrategyBuilder';
+import { BespokeServiceEngine } from '../components/engines/BespokeServiceEngine';
 import { ServiceHeroVisual } from '../components/ServiceHeroVisual';
 import { ContactCTA } from '../components/ContactCTA';
 
@@ -34,17 +33,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
   // Find service by ID
   const service = servicesData.find((s) => s.id === serviceId) || servicesData[0];
   const config = getServiceConfig(service.id, service.title);
-
-  // Dynamic route data loading state for realistic agency telemetry
-  const [isDataLoading, setIsDataLoading] = useState(true);
-
-  useEffect(() => {
-    setIsDataLoading(true);
-    const timer = setTimeout(() => {
-      setIsDataLoading(false);
-    }, 380); // crisp 380ms high-velocity data fetch
-    return () => clearTimeout(timer);
-  }, [serviceId]);
 
   const pillarIconMap: Record<string, React.ReactNode> = {
     Smartphone: <Smartphone className="w-6 h-6 text-primary" />,
@@ -60,16 +48,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
 
   return (
     <div className="pt-24 min-h-screen bg-white relative">
-      {/* Dynamic Top Progress Loading Bar */}
-      {isDataLoading && (
-        <motion.div
-          initial={{ x: '-100%' }}
-          animate={{ x: '100%' }}
-          transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
-          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent z-[60]"
-        />
-      )}
-
       {/* 1. Breadcrumbs Bar */}
       <div className="bg-slate-50/80 border-b border-slate-200/80 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,64 +61,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
-        {isDataLoading ? (
-          /* Sleek Telemetry Data Shimmer Screen */
-          <motion.div
-            key="loading-shimmer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-12"
-          >
-            <div className="flex flex-col items-center justify-center text-center space-y-4 py-12">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary relative">
-                <Loader2 className="w-8 h-8 animate-spin" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
-              </div>
-              <div className="space-y-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-primary">Live Data Pipeline</span>
-                <h3 className="text-xl font-extrabold text-slate-900">
-                  Calibrating {service.title} Telemetry & Architecture...
-                </h3>
-                <p className="text-xs text-slate-500">Retrieving certified partner integrations and live agency benchmarks</p>
-              </div>
-            </div>
-
-            {/* Skeleton Grid Preview */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center opacity-60">
-              <div className="lg:col-span-7 space-y-4 animate-pulse">
-                <div className="h-6 w-32 bg-slate-200 rounded-full" />
-                <div className="h-12 w-3/4 bg-slate-200 rounded-2xl" />
-                <div className="h-4 w-full bg-slate-100 rounded-lg" />
-                <div className="h-4 w-5/6 bg-slate-100 rounded-lg" />
-                <div className="flex space-x-3 pt-4">
-                  <div className="h-12 w-40 bg-slate-200 rounded-xl" />
-                  <div className="h-12 w-40 bg-slate-100 rounded-xl" />
-                </div>
-              </div>
-              <div className="lg:col-span-5 bg-slate-50 p-6 rounded-3xl border border-slate-200 animate-pulse space-y-4">
-                <div className="h-12 w-12 bg-slate-200 rounded-xl" />
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="h-20 bg-slate-200 rounded-xl" />
-                  <div className="h-20 bg-slate-200 rounded-xl" />
-                </div>
-                <div className="h-4 w-3/4 bg-slate-200 rounded" />
-                <div className="h-4 w-1/2 bg-slate-200 rounded" />
-              </div>
-            </div>
-          </motion.div>
-        ) : (
-          /* Dynamic Main Content with Animated Entry */
-          <motion.div
-            key={`content-${service.id}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            {/* 2. Hero Section */}
-            <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50/60 via-white to-white relative overflow-hidden">
+      {/* Fast, sleek Animated Content Entry */}
+      <motion.div
+        key={`content-${service.id}`}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        {/* 2. Hero Section */}
+        <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50/60 via-white to-white relative overflow-hidden">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                   {/* Left Column: Headline & Value Proposition */}
@@ -306,13 +235,9 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
               </div>
             </section>
 
-            {/* 5. Interactive Strategy Studio (Zero misleading math, high client value) */}
-            <div id="strategy-builder">
-              <InteractiveStrategyBuilder
-                serviceId={service.id}
-                serviceTitle={service.title}
-                onOpenGetStarted={onOpenGetStarted}
-              />
+            {/* 5. Bespoke Discipline-Specific Interactive Engine */}
+            <div id="interactive-engine" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <BespokeServiceEngine serviceId={service.id} onOpenGetStarted={onOpenGetStarted} />
             </div>
 
             {/* 6. Strategic 4-Stage Execution Framework with Scroll-Triggered Steps */}
@@ -395,8 +320,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
             {/* 8. Streamlined Contact CTA Ribbon + Global Hubs */}
             <ContactCTA onOpenGetStarted={() => onOpenGetStarted(service.title)} />
           </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

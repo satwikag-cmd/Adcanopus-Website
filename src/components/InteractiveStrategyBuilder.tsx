@@ -533,7 +533,6 @@ export const InteractiveStrategyBuilder: React.FC<InteractiveStrategyBuilderProp
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-clean space-y-6 sticky top-28">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center space-x-2.5">
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900">Live Campaign Architecture</h3>
                     <p className="text-xs text-slate-500 font-medium">Assembled in real-time for your selection</p>

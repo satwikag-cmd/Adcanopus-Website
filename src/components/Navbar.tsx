@@ -148,7 +148,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <div className="pb-3 mb-2 border-b border-gray-100 flex items-center justify-between">
                         <div>
                           <div className="flex items-center space-x-2">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                             <h4 className="text-xs font-bold uppercase tracking-wider text-primary">Comprehensive Marketing Suite</h4>
                           </div>
                           <p className="text-xs text-brand-muted mt-0.5">Click any service to launch instant interactive analytics & ROI forecast</p>
@@ -408,10 +407,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => handleServiceClick(service)}
                       className="flex items-center justify-between w-full text-left px-3 py-2.5 text-xs font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 rounded-xl"
                     >
-                      <div className="flex items-center space-x-2">
-                        <span className="w-2 h-2 rounded-full bg-primary/40"></span>
-                        <span>{service.title}</span>
-                      </div>
+                      <span>{service.title}</span>
                       <span className="text-[10px] text-primary font-bold">Inspect Specs</span>
                     </button>
                   ))}
@@ -427,7 +423,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => handleProductClick(prod.id)}
                       className="flex items-center space-x-2.5 w-full text-left px-3 py-2 text-xs font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 rounded-xl"
                     >
-                      <span className="w-2 h-2 rounded-full bg-brand-green"></span>
                       <span>{prod.name} ({prod.badge})</span>
                     </button>
                   ))}

@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { productsData } from '../data/productsData';
-import { ExternalLink, CheckCircle2, Sparkles, MessageSquare, Send, Radio, Compass, Moon, Sun, CreditCard, Clock, Zap, ArrowUpRight, TrendingUp } from 'lucide-react';
+import { AnimatedCounter } from './AnimatedCounter';
+import { 
+  ExternalLink, 
+  CheckCircle2, 
+  Sparkles, 
+  MessageSquare, 
+  Send, 
+  Radio, 
+  Compass, 
+  Moon, 
+  Sun, 
+  CreditCard, 
+  Clock, 
+  Zap, 
+  TrendingUp 
+} from 'lucide-react';
 
 interface ProductsShowcaseProps {
   selectedProductId?: string;
@@ -19,7 +34,16 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
   const activeProduct = productsData.find(p => p.id === activeProductId) || productsData[0];
 
   return (
-    <section id="products" className="py-24 bg-brand-light/50 relative border-y border-gray-100 overflow-hidden">
+    <section id="products" className="py-24 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/50 relative border-y border-slate-200/80 overflow-hidden">
+      {/* Scaviyo-grade Radial Mesh Background */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(47,85,212,0.06) 0%, transparent 60%), linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '100% 100%, 40px 40px, 40px 40px',
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -78,20 +102,28 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
           </div>
         </div>
 
-        {/* Active Product Showcase Canvas with AnimatePresence */}
+        {/* Active Product Showcase Canvas with AnimatePresence & Orchestrated Settling */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeProduct.id}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="bg-white rounded-3xl border border-gray-200 shadow-premium p-6 sm:p-10 transition-all"
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-15px_rgba(0,0,0,0.06)] p-6 sm:p-10 transition-all relative overflow-hidden"
           >
+            {/* Top Subtle Light Accent */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-              {/* Left Column: Product Information (5 cols) */}
+              {/* Left Column: Product Information with Cascaded Settling (5 cols) */}
               <div className="lg:col-span-5 space-y-5">
-                <div className="flex items-center space-x-3.5">
+                <motion.div 
+                  initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.4, delay: 0.05 }}
+                  className="flex items-center space-x-3.5"
+                >
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brand-light p-3 border border-gray-200 flex items-center justify-center shrink-0 shadow-sm">
                     <img src={activeProduct.logoSrc} alt={activeProduct.name} className="max-h-10 max-w-full object-contain" />
                   </div>
@@ -99,27 +131,49 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                     <span className="text-xs font-bold uppercase tracking-wider text-primary">{activeProduct.category}</span>
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-charcoal">{activeProduct.name}</h3>
                   </div>
-                </div>
+                </motion.div>
 
-                <h4 className="text-lg sm:text-xl font-bold text-gray-800 leading-snug">
+                <motion.h4 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.12 }}
+                  className="text-lg sm:text-xl font-bold text-gray-800 leading-snug"
+                >
                   {activeProduct.tagline}
-                </h4>
+                </motion.h4>
 
-                <p className="text-sm text-brand-muted leading-relaxed font-normal">
+                <motion.p 
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.18 }}
+                  className="text-sm text-brand-muted leading-relaxed font-normal"
+                >
                   {activeProduct.description}
-                </p>
+                </motion.p>
 
+                {/* Staggered Highlights List */}
                 <div className="space-y-2.5 pt-1">
                   <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Core Architecture & Highlights</span>
                   {activeProduct.highlights.map((item, idx) => (
-                    <div key={idx} className="flex items-start space-x-2.5 text-xs sm:text-sm text-gray-700">
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.22 + idx * 0.06 }}
+                      className="flex items-start space-x-2.5 text-xs sm:text-sm text-gray-700"
+                    >
                       <CheckCircle2 className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                       <span className="leading-snug">{item}</span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
-                <div className="pt-3">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.45 }}
+                  className="pt-3"
+                >
                   <motion.a
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -131,17 +185,17 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                     <span>Visit {activeProduct.name} Platform</span>
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </motion.a>
-                </div>
+                </motion.div>
               </div>
 
-              {/* Right Column: UNIQUE Custom Card for each product (7 cols for spacious breathing room) */}
+              {/* Right Column: UNIQUE Custom Card for each product with Live Animated Settling (7 cols) */}
               <div className="lg:col-span-7">
                 {activeProduct.id === 'dripeek' && (
-                  /* 1. DRIPEEK: Real-time SMS & Analytics Telemetry Mockup (Clean Light Theme) */
+                  /* 1. DRIPEEK: Real-time SMS & Analytics Telemetry Mockup with Live Counting */
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
+                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: 0.1 }}
                     className="bg-slate-50/90 rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-sm space-y-4"
                   >
                     {/* Top bar */}
@@ -155,31 +209,51 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                         </span>
                       </div>
                       <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full flex items-center shrink-0">
-                        <Radio className="w-3 h-3 mr-1.5 animate-pulse text-emerald-600" /> Live Dispatch
+                        <Radio className="w-3 h-3 mr-1.5 text-emerald-600" /> Live Dispatch
                       </span>
                     </div>
 
-                    {/* Quick Stats Grid */}
+                    {/* Quick Stats Grid with Dynamic Animated Counters */}
                     <div className="grid grid-cols-2 gap-3.5">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.18 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm"
+                      >
                         <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Messages Dispatched</span>
-                        <p className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">2,845,910</p>
-                        <span className="text-xs font-semibold text-emerald-600 flex items-center mt-1.5">
-                          <TrendingUp className="w-3.5 h-3.5 mr-1" /> 99.8% Delivered
+                        <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
+                          <AnimatedCounter value="2,845,910" duration={1.4} />
+                        </div>
+                        <span className="text-xs font-semibold text-emerald-600 flex items-center mt-1.5 font-mono">
+                          <TrendingUp className="w-3.5 h-3.5 mr-1" />
+                          <AnimatedCounter value="99.8%" duration={1.1} /> Delivered
                         </span>
-                      </div>
+                      </motion.div>
 
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.24 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm"
+                      >
                         <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Short-Link CTR</span>
-                        <p className="text-2xl sm:text-3xl font-black text-primary mt-1">18.4%</p>
-                        <span className="text-xs font-semibold text-slate-600 flex items-center mt-1.5">
+                        <div className="text-2xl sm:text-3xl font-black text-primary mt-1 font-mono">
+                          <AnimatedCounter value="18.4%" duration={1.2} />
+                        </div>
+                        <span className="text-xs font-semibold text-slate-600 flex items-center mt-1.5 font-mono">
                           <Zap className="w-3.5 h-3.5 mr-1 text-amber-500" /> Real-time Heatmap
                         </span>
-                      </div>
+                      </motion.div>
                     </div>
 
-                    {/* Live Outbound SMS Message Bubble Preview */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-3">
+                    {/* Live Outbound SMS Message Bubble Preview (Settles gently) */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 14, filter: "blur(3px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.45, delay: 0.3 }}
+                      className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-3"
+                    >
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-bold text-slate-800 flex items-center">
                           <MessageSquare className="w-4 h-4 text-primary mr-1.5 shrink-0" />
@@ -188,7 +262,7 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                             DLT Verified
                           </span>
                         </span>
-                        <span className="text-slate-400 text-xs shrink-0">Just now</span>
+                        <span className="text-slate-400 text-xs shrink-0 font-mono">Just now</span>
                       </div>
                       <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
@@ -199,20 +273,20 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                         <span className="font-medium">
                           Airtel / Jio / Vi Multi-Gateway
                         </span>
-                        <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200 text-[11px]">
+                        <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200 text-[11px] font-mono">
                           Latency: 0.6s
                         </span>
                       </div>
-                    </div>
+                    </motion.div>
                   </motion.div>
                 )}
 
                 {activeProduct.id === 'knowastro' && (
-                  /* 2. KNOWASTRO: Celestial Intelligence & Kundli Widget (Clean Light Theme) */
+                  /* 2. KNOWASTRO: Celestial Intelligence & Kundli Widget with Counting */
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
+                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: 0.1 }}
                     className="bg-purple-50/40 rounded-3xl p-5 sm:p-7 border border-purple-100 shadow-sm space-y-4"
                   >
                     {/* Top bar */}
@@ -229,7 +303,12 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                     </div>
 
                     {/* Celestial Forecast Box */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-3.5">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.18 }}
+                      className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-3.5"
+                    >
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <span className="text-[10px] sm:text-[11px] font-bold text-purple-600 uppercase tracking-wider block">Planetary Alignment</span>
@@ -237,7 +316,9 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                         </div>
                         <div className="text-right shrink-0">
                           <span className="text-[10px] sm:text-[11px] font-bold text-purple-600 uppercase tracking-wider block">Cosmic Harmony</span>
-                          <p className="text-base sm:text-lg font-black text-amber-600 mt-0.5">94% High</p>
+                          <p className="text-base sm:text-lg font-black text-amber-600 mt-0.5 font-mono">
+                            <AnimatedCounter value="94%" duration={1.2} /> High
+                          </p>
                         </div>
                       </div>
 
@@ -247,33 +328,47 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                         <span className="flex items-center"><Moon className="w-3.5 h-3.5 mr-1 text-indigo-500" /> Moon in Taurus</span>
                         <span className="font-semibold text-purple-700">Asc: Pisces</span>
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Astrologer Online Status & User Rating */}
                     <div className="grid grid-cols-2 gap-3.5">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm text-center">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.24 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm text-center"
+                      >
                         <span className="text-[10px] sm:text-[11px] text-slate-400 font-bold uppercase block">Active Consultations</span>
-                        <p className="text-xl sm:text-2xl font-black text-slate-900 mt-1">48 Astrologers</p>
+                        <div className="text-xl sm:text-2xl font-black text-slate-900 mt-1 font-mono">
+                          <AnimatedCounter value="48" duration={1.0} /> Astrologers
+                        </div>
                         <span className="text-xs text-emerald-600 font-semibold flex items-center justify-center mt-1.5">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse" /> Available for Chat
+                          Available for Chat
                         </span>
-                      </div>
+                      </motion.div>
 
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm text-center">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-purple-100 shadow-sm text-center"
+                      >
                         <span className="text-[10px] sm:text-[11px] text-slate-400 font-bold uppercase block">Accuracy Score</span>
-                        <p className="text-xl sm:text-2xl font-black text-amber-600 mt-1">4.9 / 5.0</p>
+                        <div className="text-xl sm:text-2xl font-black text-amber-600 mt-1 font-mono">
+                          <AnimatedCounter value="4.9" duration={1.0} /> / 5.0
+                        </div>
                         <span className="text-xs text-slate-500 font-medium mt-1.5 block">150K+ Vedic Reports</span>
-                      </div>
+                      </motion.div>
                     </div>
                   </motion.div>
                 )}
 
                 {activeProduct.id === 'paisafatafat' && (
-                  /* 3. PAISAFATAFAT: Instant Loan Disbursal & Credit Calculator (Clean Light Theme) */
+                  /* 3. PAISAFATAFAT: Instant Loan Disbursal with Live Counting */
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
+                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: 0.1 }}
                     className="bg-emerald-50/30 rounded-3xl p-5 sm:p-7 border border-emerald-100 shadow-sm space-y-4"
                   >
                     {/* Top bar */}
@@ -290,47 +385,64 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({ selectedProd
                     </div>
 
                     {/* Loan Calculator Display */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm space-y-3">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.18 }}
+                      className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm space-y-3"
+                    >
                       <div className="flex items-center justify-between gap-2">
                         <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide">Pre-Approved Loan Limit</span>
                         <span className="text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded shrink-0">
                           Paperless
                         </span>
                       </div>
-                      <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight py-0.5">₹2,50,000</p>
+                      <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight py-0.5 font-mono">
+                        <AnimatedCounter value="₹2,50,000" duration={1.4} />
+                      </div>
                       <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600 pt-2.5 border-t border-slate-100">
                         <span>Tenure: 12 Months</span>
-                        <span className="font-bold text-emerald-700">EMI: ₹22,450 / mo</span>
+                        <span className="font-bold text-emerald-700 font-mono">EMI: ₹22,450 / mo</span>
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Speed & Security Stats */}
                     <div className="grid grid-cols-2 gap-3.5">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.24 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm"
+                      >
                         <div className="flex items-center space-x-1.5 text-emerald-700 text-xs font-bold">
                           <Clock className="w-4 h-4 shrink-0" />
                           <span>Approval Speed</span>
                         </div>
-                        <p className="text-lg sm:text-xl font-black text-slate-900 mt-1.5">90 Seconds</p>
+                        <div className="text-lg sm:text-xl font-black text-slate-900 mt-1.5 font-mono">
+                          <AnimatedCounter value="90" duration={1.1} /> Seconds
+                        </div>
                         <span className="text-xs text-slate-500 block mt-0.5">Automated e-KYC</span>
-                      </div>
+                      </motion.div>
 
-                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm"
+                      >
                         <div className="flex items-center space-x-1.5 text-emerald-700 text-xs font-bold">
                           <Send className="w-4 h-4 shrink-0" />
                           <span>Disbursal Type</span>
                         </div>
                         <p className="text-lg sm:text-xl font-black text-slate-900 mt-1.5">Direct Bank</p>
                         <span className="text-xs text-slate-500 block mt-0.5">Instant IMPS/NEFT</span>
-                      </div>
+                      </motion.div>
                     </div>
 
                     {/* Bank Integrations Footer */}
                     <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
                       <span>Lending Partners: IDFC, Bajaj, IndusInd</span>
-                      <span className="font-bold text-slate-700 flex items-center shrink-0">
-                        Zero Collateral <ArrowUpRight className="w-3.5 h-3.5 ml-0.5 text-emerald-600" />
-                      </span>
+                      <span className="text-emerald-700 font-semibold font-mono">RBI Regulated NBFC</span>
                     </div>
                   </motion.div>
                 )}

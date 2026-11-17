@@ -13,14 +13,26 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   className = ''
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-20px' });
-  const [displayValue, setDisplayValue] = useState('0');
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [displayValue, setDisplayValue] = useState<string>(() => {
+    // Show prefix + 0 + suffix initially for realistic loading feel
+    const match = value.replace(/,/g, '').match(/^([^\d.]*)([\d.]+)(.*)$/);
+    if (match) {
+      return `${match[1]}0${match[3]}`;
+    }
+    return value;
+  });
 
   useEffect(() => {
     if (!isInView) return;
 
+    // Detect if value has commas
+    const hasCommas = value.includes(',');
+    // Strip commas to parse cleanly
+    const sanitized = value.replace(/,/g, '');
+
     // Parse numeric value, decimal places, prefix, and suffix
-    const match = value.match(/^([^\d.]*)([\d.]+)(.*)$/);
+    const match = sanitized.match(/^([^\d.]*)([\d.]+)(.*)$/);
     if (!match) {
       setDisplayValue(value);
       return;
@@ -38,13 +50,19 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      // Ease out expo for smooth finish
+      // Ease out cubic/expo for natural settle
       const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = targetNum * easeProgress;
 
-      setDisplayValue(
-        `${prefix}${hasDecimal ? current.toFixed(decimalPlaces) : Math.round(current)}${suffix}`
-      );
+      let formattedNumber: string;
+      if (hasDecimal) {
+        formattedNumber = current.toFixed(decimalPlaces);
+      } else {
+        const rounded = Math.round(current);
+        formattedNumber = hasCommas ? rounded.toLocaleString() : rounded.toString();
+      }
+
+      setDisplayValue(`${prefix}${formattedNumber}${suffix}`);
 
       if (progress < 1) {
         animationFrameId = requestAnimationFrame(animate);

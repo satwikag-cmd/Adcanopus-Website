@@ -53,8 +53,7 @@ export const ServiceHeroVisual: React.FC<ServiceHeroVisualProps> = ({
             <p className="text-[11px] text-slate-500 font-medium">Verified Performance Profile</p>
           </div>
         </div>
-        <div className="flex items-center space-x-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-2.5 py-1 rounded-full text-[10px] font-bold">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-2.5 py-1 rounded-full text-[10px] font-bold">
           <span>Active</span>
         </div>
       </div>
@@ -102,18 +101,18 @@ export const ServiceHeroVisual: React.FC<ServiceHeroVisualProps> = ({
               </span>
               <span className="text-[10px] font-semibold text-slate-400">Sponsored</span>
             </div>
-            <div className="bg-slate-900 text-white p-3 rounded-xl space-y-2">
+            <div className="bg-slate-50 border border-slate-200 text-slate-800 p-3 rounded-xl space-y-2">
               <div className="flex items-center space-x-2">
-                <div className="w-6 h-6 rounded-full bg-pink-500 flex items-center justify-center text-[10px] font-bold">
+                <div className="w-6 h-6 rounded-full bg-pink-500 flex items-center justify-center text-[10px] font-bold text-white">
                   IG
                 </div>
-                <span className="text-xs font-bold text-slate-100">@adcanopus_growth</span>
+                <span className="text-xs font-bold text-slate-900">@adcanopus_growth</span>
                 <span className="w-3 h-3 rounded-full bg-blue-500 flex items-center justify-center text-[8px] text-white">✓</span>
               </div>
-              <p className="text-[11px] text-slate-300 leading-snug">
+              <p className="text-[11px] text-slate-600 leading-snug">
                 "Scaling brand advocacy with 3-second hook UGC video ads across Meta & TikTok..."
               </p>
-              <div className="flex items-center justify-between pt-1 border-t border-slate-800 text-[10px] text-slate-400 font-medium">
+              <div className="flex items-center justify-between pt-1 border-t border-slate-200 text-[10px] text-slate-500 font-medium">
                 <span>❤️ 42.8k Likes</span>
                 <span>💬 890 Comments</span>
                 <span>🚀 3.2k Shares</span>
@@ -223,17 +222,17 @@ export const ServiceHeroVisual: React.FC<ServiceHeroVisualProps> = ({
               </span>
             </div>
             {/* Interactive Phone SMS Bubble Preview */}
-            <div className="bg-slate-900 text-white p-3 rounded-xl space-y-1.5 shadow-xs">
-              <div className="flex items-center justify-between text-[10px] text-slate-400">
-                <span className="font-bold text-slate-200">AD-CANOPUS</span>
+            <div className="bg-slate-50 border border-slate-200 text-slate-800 p-3 rounded-xl space-y-1.5 shadow-xs">
+              <div className="flex items-center justify-between text-[10px] text-slate-500">
+                <span className="font-bold text-slate-900">AD-CANOPUS</span>
                 <span>Just Now</span>
               </div>
-              <p className="text-xs text-slate-100 leading-relaxed font-normal bg-slate-800 p-2.5 rounded-lg border border-slate-700">
-                Your flash priority access is active! Claim 35% off your enterprise growth plan: <span className="text-emerald-400 underline font-semibold">adc.to/launch</span>
+              <p className="text-xs text-slate-800 leading-relaxed font-normal bg-white p-2.5 rounded-lg border border-slate-200 shadow-xs">
+                Your flash priority access is active! Claim 35% off your enterprise growth plan: <span className="text-emerald-700 underline font-semibold">adc.to/launch</span>
               </p>
-              <div className="flex items-center justify-between text-[10px] text-slate-400 pt-0.5">
+              <div className="flex items-center justify-between text-[10px] text-slate-500 pt-0.5">
                 <span>DLT Scrubbing: 100% Passed</span>
-                <span className="text-emerald-400 font-bold">98% Open Rate</span>
+                <span className="text-emerald-600 font-bold">98% Open Rate</span>
               </div>
             </div>
           </div>
@@ -255,9 +254,8 @@ export const ServiceHeroVisual: React.FC<ServiceHeroVisualProps> = ({
                 <span className="font-bold text-slate-900">300x250 & 728x90 Formats</span>
                 <span className="text-sky-700 font-extrabold">Above-The-Fold</span>
               </div>
-              <div className="flex items-center space-x-2 text-[10px] text-slate-600">
-                <span className="w-2 h-2 rounded-full bg-sky-500"></span>
-                <span>The Trade Desk & Google Display Network (2M+ Sites)</span>
+              <div className="text-[10px] text-slate-600">
+                The Trade Desk & Google Display Network (2M+ Sites)
               </div>
               <div className="pt-1 flex items-center justify-between text-[10px] text-slate-500">
                 <span>Brand Safety: IAS & DoubleVerify Verified</span>
@@ -279,19 +277,19 @@ export const ServiceHeroVisual: React.FC<ServiceHeroVisualProps> = ({
               </span>
             </div>
             {/* Interactive Video Player Mockup */}
-            <div className="relative rounded-xl overflow-hidden bg-slate-950 text-white p-3 space-y-4">
-              <div className="flex items-center justify-between text-[10px] text-slate-400">
+            <div className="relative rounded-xl overflow-hidden bg-gradient-to-tr from-rose-50 via-slate-50 to-orange-50 border border-rose-200/80 text-slate-800 p-3 space-y-4 shadow-xs">
+              <div className="flex items-center justify-between text-[10px] text-slate-500">
                 <span className="bg-rose-600 text-white font-bold px-1.5 py-0.5 rounded text-[9px]">4K HD</span>
                 <span>0:18 / 0:30 (In-Stream)</span>
               </div>
               <div className="flex items-center justify-center py-1">
-                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white border border-white/40 shadow-sm cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center text-white shadow-md cursor-pointer hover:scale-105 transition-transform">
                   <Play className="w-4 h-4 fill-white ml-0.5" />
                 </div>
               </div>
-              <div className="flex items-center justify-between text-[10px] text-slate-400 border-t border-slate-800 pt-2">
+              <div className="flex items-center justify-between text-[10px] text-slate-500 border-t border-rose-200/60 pt-2">
                 <span>Living Room Smart TV + Mobile Shorts</span>
-                <span className="text-emerald-400 font-bold">Shoppable CTA Overlay</span>
+                <span className="text-emerald-600 font-bold">Shoppable CTA Overlay</span>
               </div>
             </div>
           </div>

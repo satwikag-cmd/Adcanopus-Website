@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { servicesData } from '../data/servicesData';
 import { productsData } from '../data/productsData';
 import { officeLocations } from '../data/companyData';
@@ -7,10 +8,21 @@ import { Linkedin, Facebook, Twitter, Instagram, Youtube, ShieldCheck } from 'lu
 interface FooterProps {
   onSelectService?: (serviceId: string) => void;
   onOpenGetStarted: () => void;
+  onSelectProduct?: (productId: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarted }) => {
+export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarted, onSelectProduct }) => {
   const currentYear = new Date().getFullYear();
+
+  const handleProductClick = (productId: string) => {
+    if (onSelectProduct) {
+      onSelectProduct(productId);
+    }
+    const el = document.getElementById('products');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer className="bg-brand-dark text-gray-300 pt-16 pb-12 border-t border-gray-800">
@@ -19,14 +31,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-gray-800">
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-2 space-y-5">
-            <a href="#" className="inline-block">
+            <Link 
+              to="/" 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+              className="inline-block"
+            >
               <img
                 src="/assets/images/dark_logo.png"
                 alt="Adcanopus"
                 className="h-12 w-auto object-contain"
                 height={64}
               />
-            </a>
+            </Link>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
               Adcanopus is a dynamic digital performance marketing agency committed to delivering top-notch solutions that drive tangible results for enterprises worldwide.
             </p>
@@ -52,30 +68,30 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
             </div>
           </div>
 
-          {/* Column 2: All 8 Services */}
+          {/* Column 2: All 8 Services with React Router Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               All 8 Services
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs">
               {servicesData.map((svc) => (
                 <li key={svc.id}>
-                  <button
+                  <Link
+                    to={`/services/${svc.id}`}
                     onClick={() => {
                       if (onSelectService) onSelectService(svc.id);
-                      const el = document.getElementById('services');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="hover:text-primary transition-colors text-left"
+                    className="text-gray-400 hover:text-white hover:underline transition-colors block text-left"
                   >
                     {svc.title}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: In-House Products */}
+          {/* Column 3: In-House Products with Router Navigation */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               Products Ecosystem
@@ -83,13 +99,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
             <ul className="space-y-3 text-xs">
               {productsData.map((prod) => (
                 <li key={prod.id}>
-                  <a
-                    href={`#product-${prod.id}`}
-                    className="hover:text-primary transition-colors block"
+                  <Link
+                    to="/#products"
+                    onClick={() => handleProductClick(prod.id)}
+                    className="text-gray-400 hover:text-white transition-colors block group"
                   >
-                    <span className="font-bold text-white block">{prod.name}</span>
-                    <span className="text-gray-400 text-[11px]">{prod.tagline}</span>
-                  </a>
+                    <span className="font-bold text-white group-hover:text-primary transition-colors block">
+                      {prod.name}
+                    </span>
+                    <span className="text-gray-400 text-[11px] block mt-0.5">
+                      {prod.tagline}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
