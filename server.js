@@ -71,8 +71,7 @@ app.post('/api/contact', async (req, res) => {
     }
 
     // Build the Official Adcanopus HTML Email Template
-    // const recipientEmail = process.env.CONTACT_MAIL_TO || 'info@adcanopus.com';
-    const recipientEmail = 'satwika.g@kasplo.com';
+    const recipientEmail = process.env.CONTACT_MAIL_TO || 'info@adcanopus.com';
     const senderEmail = process.env.SMTP_FROM || '"Adcanopus Contact Portal" <info@adcanopus.com>';
 
     const htmlContent = `

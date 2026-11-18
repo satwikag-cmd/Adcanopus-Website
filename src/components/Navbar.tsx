@@ -348,7 +348,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                         { to: '/#process', label: 'Our Growth Process', desc: '3-stage data framework' },
                         { to: '/#case-studies', label: 'Client Case Studies', desc: 'Abhi Bus, Oyo, Boddess' },
                         { to: '/#locations', label: 'Global Hubs', desc: 'Bengaluru, Gurugram, NY' },
-                        { to: '/contact', label: 'Contact Us', desc: 'Direct outreach & consultation' },
                       ].map((item) => (
                         <Link
                           key={item.to}
@@ -505,15 +504,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     Offices (Bengaluru, Gurugram, NY)
                   </Link>
-                  <Link
-                    to="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block px-3 py-2 text-xs font-bold text-primary hover:bg-primary/5 rounded-xl"
-                  >
-                    Contact Us
-                  </Link>
                 </div>
               </div>
+
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 font-bold text-primary hover:bg-primary/5 rounded-xl text-sm"
+              >
+                Contact Us
+              </Link>
             </div>
 
             <div className="pt-4 border-t border-gray-100 flex flex-col space-y-2">

@@ -109,10 +109,6 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenGetStarted }) => {
                       <span>{loc.flag}</span>
                       <span>{loc.country}</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/90 backdrop-blur-md text-white shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      Operational Now
-                    </span>
                   </div>
 
                   {/* City Name & Role Title overlaying the image */}

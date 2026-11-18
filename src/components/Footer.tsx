@@ -60,11 +60,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
             {/* Official Partner Recognition Chips */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 border border-slate-800 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 <span>Google Partner</span>
               </div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 border border-slate-800 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
                 <span>Microsoft Advertising</span>
               </div>
             </div>
@@ -90,7 +88,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
           {/* Column 2: All 8 Services with Smooth Hover Indicator (3 cols) */}
           <div className="lg:col-span-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
               Services
             </h4>
             <ul className="space-y-2 text-xs">
@@ -115,7 +112,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
           {/* Column 3: Products Ecosystem & Quick Links (2 cols) */}
           <div className="lg:col-span-2">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
               Products
             </h4>
             <div className="space-y-3.5 text-xs">
@@ -160,7 +156,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenGetStarte
           {/* Column 4: Global Hubs (3 cols) */}
           <div className="lg:col-span-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               Global Hubs
             </h4>
             <div className="space-y-3 text-xs">

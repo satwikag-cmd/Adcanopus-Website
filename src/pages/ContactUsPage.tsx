@@ -524,7 +524,7 @@ export const ContactUsPage: React.FC = () => {
                           ref={recaptchaRef}
                           sitekey={
                             (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY ||
-                            '6LfWYvkpAAAAABsmRSz_tDMwMhM6v51l8ro0PoCp'
+                            '6LfAqSYuAAAAAO3g-P5CWBRDb3XaUxhv2DYml-FR'
                           }
                           onChange={handleRecaptchaChange}
                         />

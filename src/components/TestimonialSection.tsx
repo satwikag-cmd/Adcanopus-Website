@@ -87,7 +87,7 @@ export const TestimonialSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900 leading-tight">Rabi Roy</h4>
-                    <p className="text-xs font-medium text-primary">Manager • Enterprise Partner</p>
+                    <p className="text-xs font-medium text-primary">Manager | Enterprise Partner</p>
                   </div>
                 </div>
 
