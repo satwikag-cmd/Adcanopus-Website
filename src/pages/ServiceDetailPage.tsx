@@ -12,7 +12,6 @@ import {
   Zap,
   Target,
   BarChart3,
-  Sliders,
   Activity,
   ArrowUpRight,
   Sparkles
@@ -112,14 +111,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
                         <span>Launch {service.title} Campaign</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </motion.button>
-
-                      <a
-                        href="#strategy-builder"
-                        className="px-6 py-4 rounded-xl font-bold text-sm text-brand-charcoal bg-slate-100 hover:bg-slate-200 transition-colors flex items-center space-x-2"
-                      >
-                        <Sliders className="w-4 h-4 text-slate-500" />
-                        <span>Build Strategy Blueprint</span>
-                      </a>
                     </div>
 
                     {/* Key Trust Signals */}
@@ -183,8 +174,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
             </section>
 
             {/* 4. Deep-Dive Strategy Pillars with Scroll Stagger */}
-            <section className="py-20 bg-white">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            <section className="py-14 sm:py-16 bg-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 <div className="text-center max-w-3xl mx-auto">
                   <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-full">
                     Core Architecture
@@ -236,12 +227,12 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
             </section>
 
             {/* 5. Bespoke Discipline-Specific Interactive Engine */}
-            <div id="interactive-engine" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="interactive-engine" className="w-full">
               <BespokeServiceEngine serviceId={service.id} onOpenGetStarted={onOpenGetStarted} />
             </div>
 
             {/* 6. Strategic 4-Stage Execution Framework with Scroll-Triggered Steps */}
-            <section className="py-20 bg-white">
+            <section className="py-14 sm:py-16 bg-white">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 <div className="text-center max-w-2xl mx-auto">
                   <span className="text-xs font-bold uppercase tracking-wider text-primary">Execution Methodology</span>
@@ -269,7 +260,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenGetS
             </section>
 
             {/* 7. Explore Other Services Switcher */}
-            <section className="py-16 bg-slate-50/70 border-t border-slate-200/80">
+            <section className="py-14 sm:py-16 bg-slate-50/70 border-t border-slate-200/80">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div className="flex items-center justify-between">
                   <div>

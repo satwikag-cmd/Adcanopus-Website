@@ -4,29 +4,49 @@ export interface OfficeLocation {
   address: string;
   phone: string;
   type: string;
+  image?: string;
+  flag?: string;
+  timezone?: string;
+  tags?: string[];
+  mapUrl?: string;
 }
 
 export const officeLocations: OfficeLocation[] = [
   {
     city: 'Bengaluru',
     country: 'India',
-    type: 'Headquarters & Delivery Center',
+    flag: '🇮🇳',
+    type: 'Global HQ & Delivery Center',
+    timezone: 'IST (UTC+5:30)',
     address: '2nd Floor, Flex Coworks, 71, 15th Cross Rd, Dollar Layout, 3rd Phase, J. P. Nagar, Bengaluru, Karnataka 560078',
-    phone: '+91-8045340300'
+    phone: '+91-8045340300',
+    image: '/assets/images/company/bengaluru.jpg',
+    tags: ['Ad-Tech R&D', 'HQ Operations', 'Growth Engineering'],
+    mapUrl: 'https://maps.google.com/?q=Flex+Coworks+71+15th+Cross+Rd+Dollar+Layout+J+P+Nagar+Bengaluru'
   },
   {
     city: 'Gurugram',
     country: 'India',
+    flag: '🇮🇳',
     type: 'North India Growth Hub',
+    timezone: 'IST (UTC+5:30)',
     address: 'Emaar The Palm Spring Plaza, 16th Floor, Golf Course Rd, DLF Phase 5, Sector 54, Gurugram, Haryana 122003',
-    phone: '+91-8045340300'
+    phone: '+91-8045340300',
+    image: '/assets/images/company/gurugram.png',
+    tags: ['OEM Partnerships', 'Programmatic DSP', 'Enterprise Sales'],
+    mapUrl: 'https://maps.google.com/?q=Emaar+The+Palm+Spring+Plaza+Golf+Course+Rd+Gurugram'
   },
   {
     city: 'New York',
     country: 'United States',
+    flag: '🇺🇸',
     type: 'Global Client Partnerships',
+    timezone: 'EST (UTC-5)',
     address: '80 Broad Street, 5th Floor, New York, NY 10004',
-    phone: '+1 (725) 270-4766'
+    phone: '+1 (725) 270-4766',
+    image: '/assets/images/company/new-york.jpg',
+    tags: ['North America Media', 'Brand Strategy', 'Cross-Border Ingest'],
+    mapUrl: 'https://maps.google.com/?q=80+Broad+Street+New+York+NY+10004'
   }
 ];
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Menu, X, ArrowRight, Sparkles, Smartphone, Share2, Search, Users, Newspaper, MessageSquare, LayoutGrid, PlayCircle } from 'lucide-react';
@@ -32,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<'services' | 'products' | 'company' | null>(null);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +41,25 @@ export const Navbar: React.FC<NavbarProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleDropdownEnter = (type: 'services' | 'products' | 'company') => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setHoveredNav(type);
+    setActiveDropdown(type);
+  };
+
+  const handleDropdownLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setHoveredNav(null);
+      setActiveDropdown(null);
+    }, 180);
+  };
 
   const handleServiceClick = (service: ServiceItem) => {
     setActiveDropdown(null);
@@ -82,15 +102,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation with Animated Floating Pill */}
           <nav
             className="hidden lg:flex items-center space-x-1 font-semibold text-sm text-brand-charcoal"
-            onMouseLeave={() => {
-              setHoveredNav(null);
-              setActiveDropdown(null);
-            }}
+            onMouseLeave={handleDropdownLeave}
           >
             {/* Home Tab */}
             <Link
               to="/#hero"
               onMouseEnter={() => {
+                if (timeoutRef.current) clearTimeout(timeoutRef.current);
                 setHoveredNav('home');
                 setActiveDropdown(null);
               }}
@@ -109,10 +127,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Services Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setHoveredNav('services');
-                setActiveDropdown('services');
-              }}
+              onMouseEnter={() => handleDropdownEnter('services')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button
                 onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
@@ -137,7 +153,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <AnimatePresence>
                 {activeDropdown === 'services' && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 pointer-events-auto">
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 z-50 pointer-events-auto"
+                    onMouseEnter={() => handleDropdownEnter('services')}
+                    onMouseLeave={handleDropdownLeave}
+                  >
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -202,10 +222,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Products Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setHoveredNav('products');
-                setActiveDropdown('products');
-              }}
+              onMouseEnter={() => handleDropdownEnter('products')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button
                 onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
@@ -230,7 +248,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <AnimatePresence>
                 {activeDropdown === 'products' && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 pointer-events-auto">
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 z-50 pointer-events-auto"
+                    onMouseEnter={() => handleDropdownEnter('products')}
+                    onMouseLeave={handleDropdownLeave}
+                  >
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -283,10 +305,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Company Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => {
-                setHoveredNav('company');
-                setActiveDropdown('company');
-              }}
+              onMouseEnter={() => handleDropdownEnter('company')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button
                 onClick={() => setActiveDropdown(activeDropdown === 'company' ? null : 'company')}
@@ -311,7 +331,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <AnimatePresence>
                 {activeDropdown === 'company' && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 pointer-events-auto">
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 z-50 pointer-events-auto"
+                    onMouseEnter={() => handleDropdownEnter('company')}
+                    onMouseLeave={handleDropdownLeave}
+                  >
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -324,6 +348,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         { to: '/#process', label: 'Our Growth Process', desc: '3-stage data framework' },
                         { to: '/#case-studies', label: 'Client Case Studies', desc: 'Abhi Bus, Oyo, Boddess' },
                         { to: '/#locations', label: 'Global Hubs', desc: 'Bengaluru, Gurugram, NY' },
+                        { to: '/contact', label: 'Contact Us', desc: 'Direct outreach & consultation' },
                       ].map((item) => (
                         <Link
                           key={item.to}
@@ -340,6 +365,26 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Contact Us Tab */}
+            <Link
+              to="/contact"
+              onMouseEnter={() => {
+                if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                setHoveredNav('contact');
+                setActiveDropdown(null);
+              }}
+              className="relative px-4 py-2 rounded-xl transition-colors hover:text-primary z-10"
+            >
+              {hoveredNav === 'contact' && (
+                <motion.span
+                  layoutId="nav-hover-pill"
+                  className="absolute inset-0 bg-primary/10 rounded-xl -z-10"
+                  transition={{ type: "spring", stiffness: 450, damping: 30 }}
+                />
+              )}
+              <span>Contact Us</span>
+            </Link>
           </nav>
 
           {/* Right Action: Contact + Refined Minimalist CTA */}
@@ -459,6 +504,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="block px-3 py-2 text-xs font-semibold text-gray-700 hover:text-primary rounded-xl"
                   >
                     Offices (Bengaluru, Gurugram, NY)
+                  </Link>
+                  <Link
+                    to="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block px-3 py-2 text-xs font-bold text-primary hover:bg-primary/5 rounded-xl"
+                  >
+                    Contact Us
                   </Link>
                 </div>
               </div>
