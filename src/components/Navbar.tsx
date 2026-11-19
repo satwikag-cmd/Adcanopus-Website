@@ -388,12 +388,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action: Contact + Refined Minimalist CTA */}
           <div className="hidden lg:flex items-center space-x-4 shrink-0">
-            <a
+            {/* <a
               href="mailto:info@adcanopus.com"
               className="text-xs font-semibold text-brand-muted hover:text-brand-charcoal transition-colors whitespace-nowrap"
             >
               info@adcanopus.com
-            </a>
+            </a> */}
 
             <button
               onClick={onOpenGetStarted}

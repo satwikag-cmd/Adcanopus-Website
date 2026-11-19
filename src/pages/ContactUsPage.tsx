@@ -136,6 +136,7 @@ export const ContactUsPage: React.FC = () => {
           access_key: accessKey,
           subject: `New Adcanopus Inquiry: ${formData.name} - ${formData.company}`,
           from_name: 'Adcanopus Website Lead Desk',
+          replyto: formData.email,
           'Full Name': formData.name,
           'Work Email': formData.email,
           'Company': formData.company,
