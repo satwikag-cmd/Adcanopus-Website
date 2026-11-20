@@ -122,9 +122,10 @@ export const ContactUsPage: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const accessKey =
-        (import.meta as any).env?.VITE_WEB3FORMS_ACCESS_KEY ||
-        '4584a6f5-7d3f-4455-b7e2-6e1d6b8638fe';
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      if (!accessKey) {
+        throw new Error('Web3Forms access key is missing. Please set VITE_WEB3FORMS_ACCESS_KEY in your environment.');
+      }
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -523,10 +524,7 @@ export const ContactUsPage: React.FC = () => {
                       <div className="pt-1">
                         <ReCAPTCHA
                           ref={recaptchaRef}
-                          sitekey={
-                            (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY ||
-                            '6LfAqSYuAAAAAO3g-P5CWBRDb3XaUxhv2DYml-FR'
-                          }
+                          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || ''}
                           onChange={handleRecaptchaChange}
                         />
                       </div>
