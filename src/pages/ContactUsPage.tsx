@@ -113,7 +113,8 @@ export const ContactUsPage: React.FC = () => {
       return;
     }
 
-    if (!recaptchaToken) {
+    const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+    if (recaptchaSiteKey && !recaptchaToken) {
       setErrorMessage('Please complete the reCAPTCHA verification.');
       return;
     }
@@ -124,7 +125,11 @@ export const ContactUsPage: React.FC = () => {
     try {
       const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
       if (!accessKey) {
-        throw new Error('Web3Forms access key is missing. Please set VITE_WEB3FORMS_ACCESS_KEY in your environment.');
+        setIsSubmitting(false);
+        setErrorMessage(
+          'Email dispatch service is not configured (Missing VITE_WEB3FORMS_ACCESS_KEY in environment variables).'
+        );
+        return;
       }
 
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -521,13 +526,15 @@ export const ContactUsPage: React.FC = () => {
                       </div>
 
                       {/* Row 6: Official Google reCAPTCHA v2 Component */}
-                      <div className="pt-1">
-                        <ReCAPTCHA
-                          ref={recaptchaRef}
-                          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || ''}
-                          onChange={handleRecaptchaChange}
-                        />
-                      </div>
+                      {import.meta.env.VITE_RECAPTCHA_SITE_KEY ? (
+                        <div className="pt-1">
+                          <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                            onChange={handleRecaptchaChange}
+                          />
+                        </div>
+                      ) : null}
 
                       {/* Row 7: Send Message Button */}
                       <div className="pt-2">
